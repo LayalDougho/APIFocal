@@ -22,7 +22,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id'=>$this->id,
+            'name'=>$this->name
         ];
     }
 }

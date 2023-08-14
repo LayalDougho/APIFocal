@@ -22,7 +22,12 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id'=>$this->id,
+            'title'=>$this->title,
+            'content'=>$this->content,
+            'category_title'=>$this->category->title,
+            'category'=>$this->category_id,
+            'user'=>$this->user->name
         ];
     }
 }
