@@ -11,7 +11,7 @@ use Response;
 use Illuminate\Validation\Rule;
 
 
-class PostCpontroller extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,9 +37,14 @@ class PostCpontroller extends Controller
         return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
     }
 
+    //check ctegory validation
 
-
-    
+    public function checkCategory(Request $request){
+        $validators = Validator::make($request->all(),[
+            'category'=>'required'
+        ]);
+        return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
+    }
 
     /**
      * Store a newly created resource in storage.

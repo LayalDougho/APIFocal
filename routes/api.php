@@ -32,6 +32,18 @@ Route::get('categories/{id}/show',[CategoryController::class,'show'])->middlewar
 Route::get('categories/check/edit/name',[CategoryController::class,'checkEditName'])->middleware('auth:api');
 Route::get('categories/update',[CategoryController::class,'update'])->middleware('auth:api');
 Route::get('categories/destroy',[CategoryController::class,'destroy'])->middleware('auth:api');
-    
+
+
+//Post Routes
+
+Route::get('post','ArticleController@index')->middleware('auth:api');
+Route::post('post/check/title',[PostController::class,'checkTitle'])->middleware('auth:api');
+Route::post('post/check/category',[PostController::class,'checkCategory'])->middleware('auth:api');
+Route::post('post/check/content',[PostController::class,'checkcontent'])->middleware('auth:api');
+Route::post('post/store',[PostController::class,'store'])->middleware('auth:api');
+Route::get('post/{id}/show',[PostController::class,'show']);
+Route::post('post/update',[PostController::class,'update'])->middleware('auth:api');
+Route::post('post/destroy',[PostController::class,'destroy'])->middleware('auth:api');
+Route::get('post/{id}/tag',[PostController::class,'tag']);
 });
 
