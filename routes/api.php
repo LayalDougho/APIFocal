@@ -21,7 +21,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout')->middleware('auth:api');
     Route::post('refresh', 'refresh');
+/////////////////////////////////////////////
 
+//Category Routes
+
+Route::get('categories',[CategoryController::class,'index'])->middleware('auth:api');
+Route::get('categories/check/name',[CategoryController::class,'checkName'])->middleware('auth:api');
+Route::get('categories/store',[CategoryController::class,'store'])->middleware('auth:api');
+Route::get('categories/{id}/show',[CategoryController::class,'show'])->middleware('auth:api');
+Route::get('categories/check/edit/name',[CategoryController::class,'checkEditName'])->middleware('auth:api');
+Route::get('categories/update',[CategoryController::class,'update'])->middleware('auth:api');
+Route::get('categories/destroy',[CategoryController::class,'destroy'])->middleware('auth:api');
     
 });
 
