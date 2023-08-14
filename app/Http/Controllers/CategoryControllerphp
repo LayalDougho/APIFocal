@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return UpdateCategoryRequest::collection();
+        return UpdateCategoryRequest::collection(Category::orderBy('id','DESC')->paginate(10));
     }
     public function checkName(Request $request){
         $validators = Validator::make($request->all(),[

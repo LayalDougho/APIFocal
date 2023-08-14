@@ -17,8 +17,9 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return UpdatePostRequest::collection();
+    {        
+
+        return UpdatePostRequest::collection(Post::where('user_id',User::user()->id)->orderBy('id','DESC')->paginate(10));
     }
 
     //check title validation

@@ -11,7 +11,7 @@ class UpdateTagsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateTagsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id'=>$this->id,
+            'user'=>$this->user->name,
+            'post'=>$this->post->title
         ];
     }
 }
