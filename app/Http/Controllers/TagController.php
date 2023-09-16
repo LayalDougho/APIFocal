@@ -50,7 +50,8 @@ class TagController extends Controller
             return $this->failure('');
 
         }else{
-            $tag=new Tag();
+            $tag = Tag::all();
+            dd($tag->post);
             $tag->tag=$request->tag;
             $tag->user_id=User::user()->id;
             $tag->post_id=$request->post;
@@ -66,7 +67,7 @@ class TagController extends Controller
      */
     public function show(string $id)
     {
-        if(Tag::where('id',$id)->first()){
+        if(Tag::find($id)){
             return new UpdateTagsRequest(Tag::findOrFail($id));
         }else{
             // return Response::json(['error'=>'Tag not found!']);
@@ -87,7 +88,9 @@ class TagController extends Controller
         if($validators->fails()){
             return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
         }else{
-            $tag=tag::where('id',$request->id)->where('user_id',User::user()->id)->first();
+            // $tag=tag::where('id',$request->id)->where('user_id',User::user()->id)->first();
+            $tag = Tag::find($id);
+            dd($tag->post);
             if($tag){
                 $tag->tag=$request->tag;
                 $tag->user_id=User::user()->id;
@@ -109,7 +112,9 @@ class TagController extends Controller
      */
     public function destroy(Request $request,string $id)
     {
-        $tag=tag::where('id',$request->id)->where('user_id',User::user()->id)->first();
+        // $tag=tag::where('id',$request->id)->where('user_id',User::user()->id)->first();
+        $tag = Tag::find($id);
+        dd($tag->post);
         if($tag){
             $tag->delete();
             // return Response::json(['success'=>'tag removed successfully !']);

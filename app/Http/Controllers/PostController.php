@@ -90,7 +90,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        if(Post::where('id',$id)->first()){
+        // if(Post::where('id',$id)->first()){
+        if(Post::find($id)){
+            
             return new UpdatePostRequest(Post::findOrFail($id));
         }else{
             //return Response::json(['error'=>'post not found!']);
@@ -111,7 +113,9 @@ class PostController extends Controller
         if($validators->fails()){
             return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
         }else{
-            $post=Post::where('id',$request->id)->where('author_id',User::user()->id)->first();
+            // $post=Post::where('id',$request->id)->where('author_id',User::user()->id)->first();
+            $post =  Post::find($id);
+            dd($post->tag);
             if($post){
                 $post->title=$request->title;
                 $post->user_id=User::user()->id;
@@ -137,7 +141,9 @@ class PostController extends Controller
      */
     public function destroy(Request $request,string $id)
     {
-        $post=Post::where('id',$request->id)->where('user_id',User::user()->id)->first();
+        // $post=Post::where('id',$request->id)->where('user_id',User::user()->id)->first();
+        $post =  Post::find($id);
+        dd($post->tag);
             if($post){
                 $post->delete();
                 // return Response::json(['success'=>'post removed successfully !']);
