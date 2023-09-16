@@ -6,10 +6,12 @@ use App\Http\Requests\UpdateTagsRequest;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\User;
+use App\Traits\ApiResponseTrait;
 use Validator;
 use Response;
 class TagController extends Controller
 {
+    use ApiResponseTrait;
     /**
      * Display a listing of the resource.
      */
@@ -44,14 +46,18 @@ class TagController extends Controller
             'post'=>'required'
         ]);
         if($validators->fails()){
-            return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
+            // return Response::json(['errors'=>$validators->getMessageBag()->toArray()]);
+            return $this->failure('');
+
         }else{
             $tag=new Tag();
             $tag->tag=$request->tag;
             $tag->user_id=User::user()->id;
             $tag->post_id=$request->post;
             $tag->save();
-            return Response::json(['success'=>'tag created successfully !']);
+            // return Response::json(['success'=>'tag created successfully !']);
+            return $this->success($tag,'tag created successfully !');
+
         }
     }
 
@@ -63,7 +69,9 @@ class TagController extends Controller
         if(Tag::where('id',$id)->first()){
             return new UpdateTagsRequest(Tag::findOrFail($id));
         }else{
-            return Response::json(['error'=>'Tag not found!']);
+            // return Response::json(['error'=>'Tag not found!']);
+            return $this->failure('Tag not found!');
+
         }      
     }
 
@@ -85,9 +93,13 @@ class TagController extends Controller
                 $tag->user_id=User::user()->id;
                 $tag->post_id=$request->post;
                 $tag->save();
-                return Response::json(['success'=>'tag updated successfully !']);
+                // return Response::json(['success'=>'tag updated successfully !']);
+            return $this->success($tag,'tag updated successfully !');
+
             }else{
-                return Response::json(['error'=>'tag not found !']);
+                // return Response::json(['error'=>'tag not found !']);
+                return $this->failure('Tag not found!');
+
             }            
         }
     }
@@ -100,9 +112,13 @@ class TagController extends Controller
         $tag=tag::where('id',$request->id)->where('user_id',User::user()->id)->first();
         if($tag){
             $tag->delete();
-            return Response::json(['success'=>'tag removed successfully !']);
+            // return Response::json(['success'=>'tag removed successfully !']);
+            return $this->success($tag,'tag removed successfully !');
+
         }else{
-            return Response::json(['error'=>'tag not found!']);
+            // return Response::json(['error'=>'tag not found!']);
+            return $this->failure('Tag not found!');
+
         }
     }
 }
